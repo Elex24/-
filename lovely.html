@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just for You</title>
+  <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZDhdpKAViW9W-mKhXkFYNnGSJhkHSs8pNgQ&s" type="image/x-icon">
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+
+    .heart-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+z-index: 0;
+
+    }
+
+      .tg-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #0088cc;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+  }
+
+  .tg-button:hover {
+    background-color: #006699;
+  }
+
+    .card {
+      border: 2px solid #eee;
+      padding: 40px;
+      border-radius: 20px;
+      z-index: 1;
+      position: relative;
+      max-width: 90vw;
+      box-sizing: border-box;
+      background-color: rgba(0, 0, 0, 0.5); /* чтобы текст был виден чётче */
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .heart {
+      position: absolute;
+      top: -30px;
+      font-size: 30px;
+      animation: fall linear forwards;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .heart-button {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff69b4;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 14px;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+      box-shadow: 0 0 10px pink;
+      z-index: 2;
+    }
+
+    .heart-button:hover {
+      transform: translateX(-50%) scale(1.2);
+    }
+
+    .heart-button.active {
+      background-color: #ff1493;
+      box-shadow: 0 0 20px hotpink;
+    }
+
+    @media (max-width: 500px) {
+      .heart-button {
+        bottom: -70px;
+        font-size: 20px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+   <a href="https://t.me/+xegkh2OlFrJiZjli" target="_blank" class="tg-button">Contact me</a>
+  <div class="heart-container"> </div>
+
+  <div class="card">
+    <h1>Дорогая София 💫</h1>
+    <p>
+      Ты вошла в мою жизнь тихо, почти незаметно, но теперь каждый её момент наполнен тобой.
+      Когда ты рядом, мир будто становится мягче — словно он создан, чтобы нам в нём было хорошо.
+      В твоих движениях — спокойствие, в голосе — музыка, в волосах — аромат, от которого теряется мысль.
+      Я смотрю на тебя — и забываю, что такое тревога. Просто потому что ты есть. И в этом — вся магия.
+    </p>
+    <button class="heart-button" onclick="toggleHearts(this)">💗</button>
+  </div>
+
+  <script>
+    let heartInterval = null;
+
+    function createFallingItem(emoji) {
+      const item = document.createElement('div');
+      item.classList.add('heart');
+      item.textContent = emoji;
+      item.style.left = Math.random() * 100 + 'vw';
+      item.style.animationDuration = (2 + Math.random() * 3) + 's';
+
+      const container = document.querySelector('.heart-container');
+      container.appendChild(item);
+
+      setTimeout(() => {
+        item.remove();
+      }, 5000);
+    }
+
+function isMobile() {
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+}
+
+function toggleHearts(button) {
+  if (heartInterval) {
+    clearInterval(heartInterval);
+    heartInterval = null;
+    button.classList.remove('active');
+  } else {
+    const intervalTime = isMobile() ? 100 : 30; // медленнее на телефоне
+    heartInterval = setInterval(() => {
+      createFallingItem('💖');
+      createFallingItem('🌹');
+    }, intervalTime);
+    button.classList.add('active');
+  }
+}
+
+  </script>
+</body>
+</html>
